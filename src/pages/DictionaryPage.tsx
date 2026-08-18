@@ -1,14 +1,20 @@
-import { useMemo, useState } from 'react';
-import { Navigate, useParams } from 'react-router-dom';
-import { KanjiGrid } from '../components/KanjiGrid';
-import { Layout } from '../components/Layout';
-import { getSetById } from '../data/kanjiSets';
-import styles from './DictionaryPage.module.css';
+import { useMemo, useState } from "react";
+import { Navigate, useParams } from "react-router-dom";
+import { KanjiGrid } from "../components/KanjiGrid";
+import { Layout } from "../components/Layout";
+import { getSetById } from "../data/kanjiSets";
+import type { Theme } from "../hooks/useTheme";
+import styles from "./DictionaryPage.module.css";
 
-export function DictionaryPage() {
+interface DictionaryPageProps {
+  theme: Theme;
+  onToggleTheme: () => void;
+}
+
+export function DictionaryPage({ theme, onToggleTheme }: DictionaryPageProps) {
   const { setId } = useParams<{ setId: string }>();
   const set = setId ? getSetById(setId) : undefined;
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
 
   const filteredCards = useMemo(() => {
     if (!set) {
@@ -29,28 +35,34 @@ export function DictionaryPage() {
   }, [set, query]);
 
   if (!set) {
-    return <Navigate to="/modo/dicionario/conjunto" replace />;
+    return (
+      <Navigate
+        to='/modo/dicionario/conjunto'
+        replace
+      />
+    );
   }
 
   return (
     <Layout
-      title="Dicionário"
+      title='Dicionário'
       subtitle={`(${set.label})`}
       showBack
-      backTo="/modo/dicionario/conjunto"
+      backTo='/modo/dicionario/conjunto'
+      theme={theme}
+      onToggleTheme={onToggleTheme}
       footer={
         <div className={styles.searchBar}>
           <input
-            type="search"
+            type='search'
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Buscar..."
-            aria-label="Buscar kanji"
+            placeholder='Buscar...'
+            aria-label='Buscar kanji'
             className={styles.searchInput}
           />
         </div>
-      }
-    >
+      }>
       <div className={styles.scrollArea}>
         <KanjiGrid cards={filteredCards} />
       </div>

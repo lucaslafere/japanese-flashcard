@@ -10,8 +10,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'icons/*.svg'],
       manifest: {
-        name: 'Aprender Japonês',
-        short_name: 'Japonês',
+        name: 'KanjiCards 漢字',
+        short_name: 'KanjiCards',
         description: 'Flashcards de japonês para estudo offline',
         theme_color: '#4a9b8e',
         background_color: '#0f0f0f',

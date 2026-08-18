@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Nunito:wght@400;500;600;700;800&display=swap");
 
 *,
 *::before,
@@ -21,11 +21,11 @@
   --radius-sm: 12px;
   --radius-md: 16px;
   --radius-lg: 24px;
-  --font-sans: 'Inter', system-ui, sans-serif;
-  --font-jp: 'Noto Sans JP', 'Hiragino Sans', sans-serif;
+  --font-sans: "Nunito", system-ui, sans-serif;
+  --font-jp: "Noto Sans JP", "Hiragino Sans", sans-serif;
 }
 
-[data-theme='dark'] {
+[data-theme="dark"] {
   --bg-primary: #0f0f0f;
   --bg-secondary: #171717;
   --bg-card: #1e1e1e;
@@ -51,7 +51,9 @@ body {
   background: var(--bg-primary);
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
 button,

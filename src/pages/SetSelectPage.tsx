@@ -1,43 +1,54 @@
-import { Link, Navigate, useParams } from 'react-router-dom';
-import { Layout } from '../components/Layout';
-import { kanjiSets } from '../data/kanjiSets';
-import styles from './SetSelectPage.module.css';
+import { Link, Navigate, useParams } from "react-router-dom";
+import { Layout } from "../components/Layout";
+import { kanjiSets } from "../data/kanjiSets";
+import type { Theme } from "../hooks/useTheme";
+import styles from "./SetSelectPage.module.css";
+
+interface SetSelectPageProps {
+  theme: Theme;
+  onToggleTheme: () => void;
+}
 
 const modeLabels = {
-  desafio: 'Modo Desafio',
-  dicionario: 'Modo Dicionário',
+  desafio: "Modo Desafio",
+  dicionario: "Modo Dicionário",
 } as const;
 
 type AppMode = keyof typeof modeLabels;
 
 function isValidMode(mode: string | undefined): mode is AppMode {
-  return mode === 'desafio' || mode === 'dicionario';
+  return mode === "desafio" || mode === "dicionario";
 }
 
-export function SetSelectPage() {
+export function SetSelectPage({ theme, onToggleTheme }: SetSelectPageProps) {
   const { mode } = useParams<{ mode: string }>();
 
   if (!isValidMode(mode)) {
-    return <Navigate to="/" replace />;
+    return (
+      <Navigate
+        to='/'
+        replace
+      />
+    );
   }
 
   const modeLabel = modeLabels[mode];
-  const basePath = mode === 'desafio' ? '/desafio' : '/dicionario';
+  const basePath = mode === "desafio" ? "/desafio" : "/dicionario";
 
   return (
     <Layout
-      title="Escolher Conjunto"
+      title='Escolher Conjunto'
       subtitle={modeLabel}
       showBack
-      backTo="/"
-    >
+      backTo='/'
+      theme={theme}
+      onToggleTheme={onToggleTheme}>
       <div className={styles.list}>
         {kanjiSets.map((set) => (
           <Link
             key={set.id}
             to={`${basePath}/${set.id}`}
-            className={styles.setButton}
-          >
+            className={styles.setButton}>
             <span className={styles.setLabel}>{set.label}</span>
             <span className={styles.setMeta}>
               {set.difficulty} · {set.cards.length} kanjis

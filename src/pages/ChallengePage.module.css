@@ -2,28 +2,72 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   flex: 1;
-  gap: 1.5rem;
-  padding: 1rem 0 2rem;
+  gap: 1rem;
+  padding: 0.5rem 0 2rem;
+}
+
+.carousel {
+  display: flex;
+  width: calc(100% + 2rem);
+  margin-inline: -1rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  touch-action: pan-x;
+}
+
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.slide {
+  flex: 0 0 100%;
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+  padding: 0 1rem;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 .navigation {
   display: flex;
-  gap: 0.75rem;
-  width: 100%;
+  justify-content: space-between;
+  gap: 1rem;
+  width: min(100%, 320px);
 }
 
 .navButton {
-  flex: 1;
-  min-height: 3rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: var(--bg-card);
+  min-height: 2.5rem;
+  padding: 0.5rem 0.75rem;
+  border: none;
+  background: transparent;
   color: var(--text-primary);
-  font-weight: 500;
+  font-size: 0.875rem;
+  font-weight: 600;
+  opacity: 0.75;
+  transition:
+    opacity 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .navButton:hover {
+  border-radius: var(--radius-sm);
   background: var(--bg-secondary);
+  opacity: 1;
+}
+
+.navButton:focus-visible {
+  outline: 3px solid var(--accent-soft);
+  outline-offset: 2px;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel {
+    scroll-behavior: auto;
+  }
 }

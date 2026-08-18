@@ -12,17 +12,79 @@
 }
 
 .item {
+  position: relative;
+  min-height: 6.5rem;
+  padding: 0;
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  color: var(--text-primary);
+  perspective: 800px;
+  overflow: hidden;
+  touch-action: manipulation;
+  transition:
+    transform 0.15s ease,
+    border-color 0.2s ease;
+}
+
+.item:active {
+  transform: scale(0.97);
+}
+
+.item:focus-visible {
+  outline: 3px solid var(--accent-soft);
+  outline-offset: 2px;
+}
+
+.inner {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 6.5rem;
+  transform-style: preserve-3d;
+  transition: transform 0.5s ease;
+}
+
+.flipped .inner {
+  transform: rotateY(180deg);
+}
+
+.face {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 0.35rem;
-  min-height: 5.5rem;
   padding: 0.75rem 0.5rem;
-  border-radius: var(--radius-md);
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow);
+  backface-visibility: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease;
+}
+
+.front {
+  opacity: 1;
+  visibility: visible;
+}
+
+.back {
+  transform: rotateY(180deg);
+}
+
+.flipped .front {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.flipped .back {
+  opacity: 1;
+  visibility: visible;
 }
 
 .kanji {
@@ -37,8 +99,22 @@
   text-transform: lowercase;
 }
 
+.translation {
+  max-width: 100%;
+  font-size: 0.8rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
 .empty {
   margin: 2rem 0;
   text-align: center;
   color: var(--text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inner,
+  .face {
+    transition-duration: 0.01ms;
+  }
 }

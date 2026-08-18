@@ -1,6 +1,8 @@
-import type { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
-import styles from './Layout.module.css';
+import type { ReactNode } from "react";
+import { Link } from "react-router-dom";
+import type { Theme } from "../hooks/useTheme";
+import styles from "./Layout.module.css";
+import { ThemeToggle } from "./ThemeToggle";
 
 interface LayoutProps {
   children: ReactNode;
@@ -9,6 +11,9 @@ interface LayoutProps {
   showBack?: boolean;
   backTo?: string;
   footer?: ReactNode;
+  theme: Theme;
+  onToggleTheme: () => void;
+  centered?: boolean;
 }
 
 export function Layout({
@@ -16,14 +21,26 @@ export function Layout({
   title,
   subtitle,
   showBack = false,
-  backTo = '/',
+  backTo = "/",
   footer,
+  theme,
+  onToggleTheme,
+  centered = false,
 }: LayoutProps) {
   return (
-    <div className={styles.layout}>
+    <div className={`${styles.layout} ${centered ? styles.centered : ""}`}>
       <header className={styles.header}>
+        <div className={styles.themeToggle}>
+          <ThemeToggle
+            theme={theme}
+            onToggle={onToggleTheme}
+          />
+        </div>
         {showBack && (
-          <Link to={backTo} className={styles.backButton} aria-label="Voltar">
+          <Link
+            to={backTo}
+            className={styles.backButton}
+            aria-label='Voltar'>
             ←
           </Link>
         )}

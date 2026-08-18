@@ -1,0 +1,36 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+.setButton {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.1rem 1.25rem;
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  transition: transform 0.15s ease, border-color 0.2s ease;
+}
+
+.setButton:hover {
+  border-color: var(--accent);
+}
+
+.setButton:active {
+  transform: scale(0.98);
+}
+
+.setLabel {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.setMeta {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}

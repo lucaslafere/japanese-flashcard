@@ -1,6 +1,6 @@
-import { useState, type MouseEvent } from 'react';
-import type { KanjiCard } from '../data/kanjiSets';
-import styles from './FlashCard.module.css';
+import { useState, type CSSProperties, type MouseEvent } from "react";
+import type { KanjiCard } from "../data/kanjiSets";
+import styles from "./FlashCard.module.css";
 
 interface FlashCardProps {
   card: KanjiCard;
@@ -16,7 +16,7 @@ export function FlashCard({ card }: FlashCardProps) {
 
   const handleAudioClick = (event: MouseEvent) => {
     event.stopPropagation();
-    setAudioMessage('Áudio em breve');
+    setAudioMessage("Áudio em breve");
     window.setTimeout(() => setAudioMessage(null), 2000);
   };
 
@@ -24,23 +24,27 @@ export function FlashCard({ card }: FlashCardProps) {
     <div className={styles.wrapper}>
       <div className={styles.cardArea}>
         <button
-          type="button"
+          type='button'
           className={styles.audioButton}
           onClick={handleAudioClick}
-          aria-label="Ouvir pronúncia"
-        >
+          aria-label='Ouvir pronúncia'>
           ▶
         </button>
 
         <button
-          type="button"
-          className={`${styles.card} ${isFlipped ? styles.flipped : ''}`}
+          type='button'
+          className={`${styles.card} ${isFlipped ? styles.flipped : ""}`}
           onClick={handleFlip}
-          aria-label={isFlipped ? 'Mostrar kanji' : 'Mostrar tradução'}
-        >
+          aria-label={isFlipped ? "Mostrar kanji" : "Mostrar tradução"}>
           <div className={styles.inner}>
             <div className={`${styles.face} ${styles.front}`}>
-              <span className={styles.kanji}>{card.kanji}</span>
+              <span
+                className={styles.kanji}
+                style={
+                  { "--kanji-length": [...card.kanji].length } as CSSProperties
+                }>
+                {card.kanji}
+              </span>
             </div>
 
             <div className={`${styles.face} ${styles.back}`}>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import type { KanjiCard } from "../data/kanjiSets";
 import styles from "./KanjiGrid.module.css";
 
@@ -41,7 +41,11 @@ export function KanjiGrid({ cards }: KanjiGridProps) {
             }
             aria-pressed={isFlipped}>
             <span className={styles.inner}>
-              <span className={`${styles.face} ${styles.front}`}>
+              <span
+                className={`${styles.face} ${styles.front}`}
+                style={
+                  { "--kanji-length": [...card.kanji].length } as CSSProperties
+                }>
                 <span className={styles.kanji}>{card.kanji}</span>
               </span>
               <span className={`${styles.face} ${styles.back}`}>

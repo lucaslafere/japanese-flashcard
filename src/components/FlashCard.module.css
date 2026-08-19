@@ -17,6 +17,7 @@
   perspective: 1200px;
   border: none;
   background: transparent;
+  color: var(--text-primary);
   padding: 0;
 }
 

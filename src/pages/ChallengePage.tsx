@@ -11,13 +11,27 @@ interface ChallengePageProps {
   onToggleTheme: () => void;
 }
 
+function shuffleCards<T>(cards: T[]): T[] {
+  const shuffledCards = [...cards];
+
+  for (let index = shuffledCards.length - 1; index > 0; index -= 1) {
+    const randomIndex = Math.floor(Math.random() * (index + 1));
+    [shuffledCards[index], shuffledCards[randomIndex]] = [
+      shuffledCards[randomIndex],
+      shuffledCards[index],
+    ];
+  }
+
+  return shuffledCards;
+}
+
 export function ChallengePage({ theme, onToggleTheme }: ChallengePageProps) {
   const { setId } = useParams<{ setId: string }>();
   const set = setId ? getSetById(setId) : undefined;
   const [currentIndex, setCurrentIndex] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
 
-  const cards = useMemo(() => set?.cards ?? [], [set]);
+  const cards = useMemo(() => shuffleCards(set?.cards ?? []), [set]);
 
   useEffect(() => {
     const carousel = carouselRef.current;

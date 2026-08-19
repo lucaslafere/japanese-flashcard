@@ -6,7 +6,7 @@ PWA mobile para aprender japonês com flashcards, conjuntos por dificuldade e su
 
 - **Modo Desafio**: card grande com kanji, flip para romaji e tradução
 - **Modo Dicionário**: grid scrollável com busca e cards que giram ao toque
-- **Conjuntos A, B e C** por nível de dificuldade
+- **Conjuntos A, B, C e Nivel 10** por nível de dificuldade
 - **Tema claro/escuro** com preferência salva localmente
 - **PWA instalável** no iPhone pelo Safari
 - **PWA offline** após a primeira visita online

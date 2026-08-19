@@ -4,9 +4,10 @@ import styles from "./KanjiGrid.module.css";
 
 interface KanjiGridProps {
   cards: KanjiCard[];
+  columns?: 2 | 3;
 }
 
-export function KanjiGrid({ cards }: KanjiGridProps) {
+export function KanjiGrid({ cards, columns = 3 }: KanjiGridProps) {
   const [flippedCards, setFlippedCards] = useState<Set<string>>(new Set());
 
   if (cards.length === 0) {
@@ -14,7 +15,7 @@ export function KanjiGrid({ cards }: KanjiGridProps) {
   }
 
   return (
-    <div className={styles.grid}>
+    <div className={`${styles.grid} ${columns === 2 ? styles.twoColumns : ""}`}>
       {cards.map((card) => {
         const isFlipped = flippedCards.has(card.id);
 

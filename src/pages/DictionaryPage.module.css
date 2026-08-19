@@ -5,17 +5,91 @@
   padding-right: 0.15rem;
 }
 
-.searchBar {
-  position: sticky;
-  bottom: 0;
-  padding-top: 0.5rem;
-  background: linear-gradient(to top, var(--bg-primary) 75%, transparent);
+.searchButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-size: 1.55rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.searchButton:hover {
+  background: var(--bg-secondary);
+}
+
+.searchIcon {
+  position: relative;
+  width: 0.9rem;
+  height: 0.9rem;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+}
+
+.searchIcon::after {
+  position: absolute;
+  right: -0.35rem;
+  bottom: -0.2rem;
+  width: 0.45rem;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+  content: '';
+  transform: rotate(45deg);
+  transform-origin: left center;
+}
+
+.searchButton:focus-visible,
+.searchInput:focus-visible,
+.closeSearchButton:focus-visible {
+  outline: 2px solid var(--accent-soft);
+  outline-offset: 2px;
+}
+
+.searchForm {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.closeSearchButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-size: 1.6rem;
+  font-weight: 300;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.closeSearchButton:hover {
+  background: var(--bg-secondary);
 }
 
 .searchInput {
   width: 100%;
-  min-height: 3rem;
-  padding: 0 1rem;
+  min-width: 0;
+  flex: 1;
+  min-height: 2.5rem;
+  padding: 0 0.75rem;
   border-radius: 999px;
   border: 1px solid var(--border);
   background: var(--bg-card);
@@ -27,6 +101,5 @@
 }
 
 .searchInput:focus {
-  outline: 2px solid var(--accent-soft);
   border-color: var(--accent);
 }

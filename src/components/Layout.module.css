@@ -23,11 +23,19 @@
   padding: 0 2.75rem;
 }
 
-.themeToggle {
+.headerActions {
   position: absolute;
   top: 0;
   right: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
   z-index: 2;
+}
+
+.headerActions:has(.searchForm) {
+  left: 0;
+  right: 0;
 }
 
 .backButton {
@@ -76,7 +84,7 @@
     padding-inline: 2.25rem;
   }
 
-  .themeToggle {
+  .headerActions {
     right: -0.25rem;
   }
 }

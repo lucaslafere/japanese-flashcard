@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { KanjiGrid } from "../components/KanjiGrid";
 import { Layout } from "../components/Layout";
@@ -15,6 +15,14 @@ export function DictionaryPage({ theme, onToggleTheme }: DictionaryPageProps) {
   const { setId } = useParams<{ setId: string }>();
   const set = setId ? getSetById(setId) : undefined;
   const [query, setQuery] = useState("");
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (isSearchOpen) {
+      searchInputRef.current?.focus();
+    }
+  }, [isSearchOpen]);
 
   const filteredCards = useMemo(() => {
     if (!set) {
@@ -51,20 +59,50 @@ export function DictionaryPage({ theme, onToggleTheme }: DictionaryPageProps) {
       backTo='/modo/dicionario/conjunto'
       theme={theme}
       onToggleTheme={onToggleTheme}
-      footer={
-        <div className={styles.searchBar}>
-          <input
-            type='search'
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder='Buscar...'
-            aria-label='Buscar kanji'
-            className={styles.searchInput}
-          />
-        </div>
+      hideThemeToggle={isSearchOpen}
+      headerAction={
+        isSearchOpen ? (
+          <form
+            className={styles.searchForm}
+            onSubmit={(event) => event.preventDefault()}>
+            <button
+              type='button'
+              className={styles.closeSearchButton}
+              onClick={() => setIsSearchOpen(false)}
+              aria-label='Fechar busca'>
+              ×
+            </button>
+            <input
+              type='search'
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder='Buscar kanji'
+              aria-label='Buscar kanji'
+              ref={searchInputRef}
+              onKeyDown={(event) => {
+                if (event.key === 'Escape') {
+                  setIsSearchOpen(false);
+                }
+              }}
+              className={styles.searchInput}
+            />
+          </form>
+        ) : (
+          <button
+            type='button'
+            className={styles.searchButton}
+            onClick={() => setIsSearchOpen(true)}
+            aria-label='Abrir busca'
+            title='Buscar kanji'>
+            <span
+              className={styles.searchIcon}
+              aria-hidden='true'
+            />
+          </button>
+        )
       }>
       <div className={styles.scrollArea}>
-        <KanjiGrid cards={filteredCards} />
+        <KanjiGrid cards={filteredCards} columns={2} />
       </div>
     </Layout>
   );

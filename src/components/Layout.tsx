@@ -10,9 +10,11 @@ interface LayoutProps {
   subtitle?: string;
   showBack?: boolean;
   backTo?: string;
+  headerAction?: ReactNode;
   footer?: ReactNode;
   theme: Theme;
   onToggleTheme: () => void;
+  hideThemeToggle?: boolean;
   centered?: boolean;
 }
 
@@ -22,19 +24,24 @@ export function Layout({
   subtitle,
   showBack = false,
   backTo = "/",
+  headerAction,
   footer,
   theme,
   onToggleTheme,
+  hideThemeToggle = false,
   centered = false,
 }: LayoutProps) {
   return (
     <div className={`${styles.layout} ${centered ? styles.centered : ""}`}>
       <header className={styles.header}>
-        <div className={styles.themeToggle}>
-          <ThemeToggle
-            theme={theme}
-            onToggle={onToggleTheme}
-          />
+        <div className={styles.headerActions}>
+          {headerAction}
+          {!hideThemeToggle && (
+            <ThemeToggle
+              theme={theme}
+              onToggle={onToggleTheme}
+            />
+          )}
         </div>
         {showBack && (
           <Link

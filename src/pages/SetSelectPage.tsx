@@ -7,6 +7,7 @@ import styles from "./SetSelectPage.module.css";
 interface SetSelectPageProps {
   theme: Theme;
   onToggleTheme: () => void;
+  studyCardCount: number;
 }
 
 const modeLabels = {
@@ -20,7 +21,11 @@ function isValidMode(mode: string | undefined): mode is AppMode {
   return mode === "desafio" || mode === "dicionario";
 }
 
-export function SetSelectPage({ theme, onToggleTheme }: SetSelectPageProps) {
+export function SetSelectPage({
+  theme,
+  onToggleTheme,
+  studyCardCount,
+}: SetSelectPageProps) {
   const { mode } = useParams<{ mode: string }>();
 
   if (!isValidMode(mode)) {
@@ -44,7 +49,15 @@ export function SetSelectPage({ theme, onToggleTheme }: SetSelectPageProps) {
       theme={theme}
       onToggleTheme={onToggleTheme}>
       <div className={styles.list}>
-        {kanjiSets.map((set) => (
+        {[
+          ...kanjiSets,
+          {
+            id: "study" as const,
+            label: "Lista de Estudo",
+            difficulty: "Personalizada",
+            cards: Array.from({ length: studyCardCount }),
+          },
+        ].map((set) => (
           <Link
             key={set.id}
             to={`${basePath}/${set.id}`}

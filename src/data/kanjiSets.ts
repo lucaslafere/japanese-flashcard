@@ -6,8 +6,10 @@ export interface KanjiCard {
   audio?: string;
 }
 
+export type StudyListResult = "added" | "removed" | "duplicate" | "error";
+
 export interface KanjiSet {
-  id: "A" | "B" | "C" | "10";
+  id: "A" | "B" | "C" | "10" | "study";
   label: string;
   difficulty: string;
   cards: KanjiCard[];
@@ -577,4 +579,13 @@ export const kanjiSets: KanjiSet[] = [
 
 export function getSetById(setId: string): KanjiSet | undefined {
   return kanjiSets.find((set) => set.id === setId);
+}
+
+export function getStudySet(cards: KanjiCard[]): KanjiSet {
+  return {
+    id: "study",
+    label: "Lista de Estudo",
+    difficulty: "Personalizada",
+    cards,
+  };
 }

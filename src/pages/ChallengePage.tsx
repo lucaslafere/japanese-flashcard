@@ -2,13 +2,14 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { FlashCard } from "../components/FlashCard";
 import { Layout } from "../components/Layout";
-import { getSetById } from "../data/kanjiSets";
+import { getSetById, getStudySet, type KanjiCard } from "../data/kanjiSets";
 import type { Theme } from "../hooks/useTheme";
 import styles from "./ChallengePage.module.css";
 
 interface ChallengePageProps {
   theme: Theme;
   onToggleTheme: () => void;
+  studyCards: KanjiCard[];
 }
 
 function shuffleCards<T>(cards: T[]): T[] {
@@ -25,9 +26,18 @@ function shuffleCards<T>(cards: T[]): T[] {
   return shuffledCards;
 }
 
-export function ChallengePage({ theme, onToggleTheme }: ChallengePageProps) {
+export function ChallengePage({
+  theme,
+  onToggleTheme,
+  studyCards,
+}: ChallengePageProps) {
   const { setId } = useParams<{ setId: string }>();
-  const set = setId ? getSetById(setId) : undefined;
+  const set =
+    setId === "study"
+      ? getStudySet(studyCards)
+      : setId
+        ? getSetById(setId)
+        : undefined;
   const [currentIndex, setCurrentIndex] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
 
